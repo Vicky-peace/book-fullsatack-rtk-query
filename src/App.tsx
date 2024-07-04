@@ -24,7 +24,7 @@ function App() {
 
   const handleFormSubmit = async (book: Book) => {
     try {
-      const savedBook = editBook ? await updateBook(book).unwrap() : await addBook(book).unwrap();
+      await editBook ? await updateBook(book).unwrap() : await addBook(book).unwrap();
       closeModal();
       toast.success(`Book ${editBook ? 'updated' : 'added'} successfully!`);
     } catch (err) {

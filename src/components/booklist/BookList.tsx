@@ -1,36 +1,31 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import BookItem from '../bookitem/BookItem';
 import Pagination from '../pagination/Pagination';
-import { useGetBooksQuery } from '../../features/bookAPi'; // Ensure this path is correct
+import { Book } from '../../types'; // Ensure the path to your types is correct
 import './booklist.scss';
+
+interface BookListProps {
+  books: Book[];
+  onEdit: (book: Book) => void;
+  onDelete: (bookId: number) => void;
+}
 
 const BOOKS_PER_PAGE = 4;
 
-const BookList = (): JSX.Element => {
-  const { data: books, isLoading, isError, error } = useGetBooksQuery();
+const BookList: React.FC<BookListProps> = ({ books, onEdit, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(books.length / BOOKS_PER_PAGE);
 
-  // Improved error handling
-  let errorMessage = "An unknown error occurred.";
-  if (isError) {
-    if ('status' in error) {
-      errorMessage = `Error: ${error.status} ${error.data ? JSON.stringify(error.data) : ''}`;
-    } else if ('error' in error) {
-      errorMessage = `Error: ${error.error}`;
-    }
-  }
-
-  if (isError) {
-    return <div>{errorMessage}</div>;
-  }
-
-  const totalPages = Math.ceil((books?.length || 0) / BOOKS_PER_PAGE);
+  // Calculate the current books to display based on the current page
   const startIndex = (currentPage - 1) * BOOKS_PER_PAGE;
-  const selectedBooks = books?.slice(startIndex, startIndex + BOOKS_PER_PAGE) || [];
+  const selectedBooks = books.slice(startIndex, startIndex + BOOKS_PER_PAGE);
+
+  // Handler for changing the page
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <div className='bookList'>
@@ -45,11 +40,16 @@ const BookList = (): JSX.Element => {
         </thead>
         <tbody>
           {selectedBooks.map((book) => (
-            <BookItem key={book.id} book={book} onEdit={() => {}} />
+            <BookItem 
+              key={book.id} 
+              book={book} 
+              onEdit={onEdit} 
+              onDelete={onDelete}
+            />
           ))}
         </tbody>
       </table>
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
 };

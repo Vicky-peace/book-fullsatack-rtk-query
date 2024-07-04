@@ -5,9 +5,11 @@ import { Book } from '../../types';
 import { useCreateBookMutation, useUpdateBookMutation } from '../../features/bookAPi';
 
 interface BookFormProps {
-  initialData?: Book | null;
+  onSubmit: (book: Book) => void;
+  initialData: Book | null;
   closeModal: () => void;
 }
+
 
 const BookForm = ({  initialData, closeModal }: BookFormProps): JSX.Element => {
   const [book, setBook] = useState<Book>({ id: 0, title: '', author: '', year: 0 });
