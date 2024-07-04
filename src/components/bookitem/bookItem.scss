@@ -1,0 +1,37 @@
+.bookItem {
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  .actions {
+    button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .edit {
+      background-color: #007bff; 
+
+      &:hover {
+        background-color: #08396d; 
+      }
+    }
+
+    .delete {
+      background-color: rgb(197, 47, 47);
+
+      &:hover {
+        background-color: rgb(87, 30, 30); 
+      }
+    }
+  }
+}

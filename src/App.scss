@@ -1,0 +1,43 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+// App.scss
+.app {
+  font-family: 'Arial', sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;
+  }
+
+  .header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+}
+
+.add-book-btn{
+  margin: 20px;
+  padding: 10px 20px;
+  background-color: #007bff ;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-book-btn:hover{
+  background-color: #0056b3;
+}
